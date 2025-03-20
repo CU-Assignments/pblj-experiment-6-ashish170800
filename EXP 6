@@ -1,0 +1,76 @@
+1.Write a program to sort a list of Employee objects (name, age, salary) using lambda expressions
+
+import java.util.*;
+
+class Employee {
+    String name;
+    int age;
+    double salary;
+
+    public Employee(String name, int age, double salary) {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{name='" + name + "', age=" + age + ", salary=" + salary + "}";
+    }
+}
+
+public class EmployeeSorter {
+    public static void main(String[] args) {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("Alice", 30, 50000));
+        employees.add(new Employee("Bob", 25, 60000));
+        employees.add(new Employee("Charlie", 35, 55000));
+
+        // Sorting by name
+        employees.sort(Comparator.comparing(emp -> emp.name));
+        System.out.println("Sorted by name: " + employees);
+        
+        // Sorting by age
+        employees.sort(Comparator.comparingInt(emp -> emp.age));
+        System.out.println("Sorted by age: " + employees);
+        
+        // Sorting by salary
+        employees.sort(Comparator.comparingDouble(emp -> emp.salary));
+        System.out.println("Sorted by salary: " + employees);
+    }
+}
+
+2.Create a program to use lambda expressions and stream operations to filter students scoring above 75%, sort them by marks, and display their names.
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Student {
+    String name;
+    double marks;
+
+    public Student(String name, double marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+}
+
+public class StudentFilterSort {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("Alice", 85.5),
+            new Student("Bob", 72.0),
+            new Student("Charlie", 90.0),
+            new Student("David", 65.5),
+            new Student("Eve", 78.0)
+        );
+
+        List<String> topStudents = students.stream()
+            .filter(student -> student.marks > 75)
+            .sorted(Comparator.comparingDouble(student -> student.marks))
+            .map(student -> student.name)
+            .collect(Collectors.toList());
+
+        System.out.println("Students scoring above 75%, sorted by marks: " + topStudents);
+    }
+}
